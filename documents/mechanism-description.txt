@@ -1,0 +1,43 @@
+####################################
+DESCRIPTION FOR RESHARDING PROCEDURE
+####################################
+
+The mechanism for resharding works as follows:
+
+We begin by taking a put request from a user. We extract the data from the request and store the 
+specified shard count in a variable. We then check that, given the current number of running nodes, that the specified number
+of shards can be created. For example, if we have 6 running nodes, and the user specifies 3 shards. We
+will check that we have enough nodes by dividing the total number of nodes by 2 and then comparing if that is greater
+than the number specified by the user. 
+
+We then initialize variables to store information such as socket addresses, input and outputs for the KVS, and
+payload data from the shards. We then proceed request the the shard ID's of all the nodes and prepare the request to send to
+each indiviual nodes. We then take in all of the keys from the shards and begin recomputing hashes for the all the keys. We 
+then place those keys into the output key value store. 
+
+Once all the hashes have been computed, a put command is sent which adds a specified socket address to a shard. For example,
+we might assign socket address 3, from shard 1 to shard 2 or any other variation. In this put request, we include a copy of 
+the kvs to be stored and the shard ID for that node to be assigned to. Once this process has completed, the system is 
+successfully resharded.
+
+
+#######################################
+DESCRIPTION OF KEY TO SHARD METHOD USED
+#######################################
+
+The method used to map keys to shards is described as follows:
+
+The work of hashing keys is performed by findShard() in requestHelper.py
+
+This function hashes keys via the hashing algorithm MD5 with keys encoded in the UTF-8 format.
+MD5 has multiple advantages over library functions like Pythons own hash() or methods such as SHA-1 or SHA-2.
+
+First, MD5 is comparably quick to compute. Algorithms like SHA have very little collisions as far as resulting hashes,
+however the process itself can be time consuming and is not suitable for the task at hand. MD5 also has the advantage of
+producing unique enough hashes from a given input that they are unlikely to collide. Finally, MD5 will produce the same hash
+of a given key, regardless of the node or computer that is computing the hash. This is important as the algorithm used
+needs to be contistent or it will not suffice. 
+
+Once, the MD5 hash has been computed of the key, we take the modulo of said hash with respect to the number of shards
+specified and use the result as the shard for the key to be stored in. It should be noted that the shard number computed
+from performing modulo on the hash, always has one added to it, to prevent anything from being assigned to a 0 shard. 
