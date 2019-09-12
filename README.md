@@ -1,6 +1,4 @@
-# CMPS 128 Spring 2019 Assignment 4
-
-Documentation for Assignment 4
+# Sharded Key Value Store
 
 ### Prerequisites
 
@@ -308,13 +306,3 @@ into groups of atleast two for a specified number of shards. Hence three shards 
 six nodes at a minimum
 class reshard(Resource):
 ```
-
-## Authors
-
-- **Diego Magdaleno - dmmagdal@ucsc.edu**
-- **Matthew Hawkins - mdhawkin@ucsc.edu**
-- **Erik Haight - edhaight@ucsc.edu**
-
-[flasklink]: http://flask.pocoo.org/docs/1.0/api/
-[restfullink]: https://flask-restful.readthedocs.io/en/latest/
-[handlerpost]: https://github.com/flask-restful/flask-restful/issues/280
