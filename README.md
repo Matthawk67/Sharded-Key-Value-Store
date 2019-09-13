@@ -146,7 +146,6 @@ Otherwise, you will recieve this object with a status code of 404:
 ## Directories
 
 - [src](src/) (Contains souce code)
-- [tests](tests/) (Contains code for testing functionality of system)
 - [scripts](scripts/) (Contains a few useful scripts which execute certain long requests)
 - [documents](documents/) (Contains additional files for like contribution, mechanism descriptions, ect.)
 
