@@ -1,7 +1,7 @@
-SOURCE=./hw4/src/
-IMGTAG=assignment4-image
+SOURCE=./Sharded-Key-Value-Store/src/
+IMGTAG=Sharded-Key-Value-Store-image
 DOCKERSILENCE=&> /dev/null || true
-VOLUMEBIND=`pwd`:/hw4
+VOLUMEBIND=`pwd`:/Sharded-Key-Value-Store
 
 NET=mynet
 
@@ -71,6 +71,3 @@ build: clean subnet
 prune: clean
 	@echo "Pruning system"
 	@-echo 'y' | docker system prune $(DOCKERSILENCE)
-
-test: clean
-	python3 tests/test_assignment4_v4.py
