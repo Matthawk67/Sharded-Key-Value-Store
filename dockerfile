@@ -4,8 +4,8 @@ ENV HOST "0.0.0.0"
 ENV PORT "8080"
 ENV SRC "main.py"
 
-COPY . /hw4
-WORKDIR /hw4/src
+COPY . /Sharded-Key-Value-Store
+WORKDIR /Sharded-Key-Value-Store/src
 RUN pip install flask-restful requests gunicorn
 
-ENTRYPOINT gunicorn -c /hw4/config.ini main:app 
+ENTRYPOINT gunicorn -c /Sharded-Key-Value-Store/config.ini main:app 
